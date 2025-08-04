@@ -1,6 +1,7 @@
 # helm-quote
 docker-terraform-kubernetes-helm deplyement project
 
+
 ## port-forward for kubernets
 ```
 kubectl port-forward svc/quote-backend 8080:8080 -n quote-app
@@ -159,3 +160,15 @@ sudo apt remove nginx nginx-common -y
 sudo apt purge nginx nginx-common -y
 sudo rm -rf /etc/nginx /var/log/nginx /var/www/html
 ```
+
+## NOTE:
+if Ingress addon is enabled and ingress-rules.yaml is applied + minikube tunnel, then test is 
+```
+ ~/p/helm-quote [main] % curl http://localhost/quote
+
+{
+    "server": "snippy-papaya-ffym1lgj",
+    "quote": "The light at the end of the tunnel is interdependent on the relatedness of motivation, subcultures, and management.",
+    "time": "2025-08-04T17:49:41.141131Z"
+}
+```                                                                                                                                                                                        

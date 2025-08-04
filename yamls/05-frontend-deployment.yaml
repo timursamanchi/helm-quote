@@ -1,0 +1,31 @@
+# 05-backend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quote-frontend
+  namespace: quote-app
+  labels:
+    app: quote-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quote-frontend
+  template:
+    metadata:
+      labels:
+        app: quote-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: timursamanchi/quote-frontend:zzz
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          imagePullPolicy: Always
