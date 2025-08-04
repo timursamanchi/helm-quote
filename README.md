@@ -191,3 +191,56 @@ kubectl get hpa -n quote-app --watch
 
 kubectl delete deployment frontend-load-generator -n quote-app
 ```
+
+## ✅ Option 1: Bash + curl (Simple loop)
+
+#!/bin/bash
+while true; do
+  curl -s http://localhost/quote > /dev/null
+done
+
+📌 Save as stress-backend.sh, then run:
+
+chmod +x stress-backend.sh
+./stress-backend.sh
+
+## ✅ Option 2: Parallel curl flood (lightweight load test)
+
+#!/bin/bash
+for i in {1..20}; do
+  while true; do
+    curl -s http://localhost/ > /dev/null &
+    curl -s http://localhost/quote > /dev/null &
+    sleep 0.2
+  done
+done
+
+## 📌 Save as hammer.sh, run:
+
+chmod +x hammer.sh
+./hammer.sh
+
+This simulates 20+ users hitting your frontend and backend rapidly.
+## ✅ Option 3: Use hey — a proper CLI load tester
+
+Install via Homebrew:
+
+brew install hey
+
+Then test the frontend:
+
+hey -z 30s -c 20 http://localhost/
+
+Or backend:
+
+hey -z 30s -c 20 http://localhost/quote
+
+    -z 30s → duration
+
+    -c 20 → 20 concurrent users
+
+## 📈 Then monitor HPA:
+
+kubectl get hpa -n quote-app --watch
+
+You’ll see replicas climb as CPU spikes.
