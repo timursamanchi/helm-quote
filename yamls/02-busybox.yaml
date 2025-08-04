@@ -8,7 +8,7 @@ spec:
   containers:
     - name: busybox
       image: busybox
-      command: ["sleep", "3600"]
+      command: ["sh", "-c", "while true; do echo hello from busybox; sleep 5; done"]
       imagePullPolicy: IfNotPresent
       resources:
         requests:

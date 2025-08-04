@@ -89,7 +89,7 @@ steps can be used on any deployment.yaml files
 ```
 kubectl get ns
 
-# Make sure quote-app is listed.
+# Make sure the app (example: quote-app) is listed.
 
 kubectl get pod -n quote-app
 ```
@@ -113,3 +113,8 @@ Once it's in Running state, exec into it:
 kubectl exec -it busybox -n quote-app -- sh
 ```
 That gives a BusyBox shell. Now can run commands like ls, ping, nslookup, etc.
+
+To delete any pod (example: busybox)
+```
+kubectl delete pod busybox -n quote-app
+```
