@@ -72,9 +72,18 @@ spec:
 containers:
   - name: backend
     image: <aws_account_id>.dkr.ecr.eu-west-2.amazonaws.com/quote-backend:latest
-
 ```
 
+To load a new image lto local docker daemon
+```
+docker buildx build --no-cache --platform=linux/amd64 -t quote-backend:v1000 ./backend --load
+```
+
+To build and push to dockerhub/ECR
+```
+docker buildx build --platform=linux/amd64,linux/arm64 --no-cache --push -t 040929397520.dkr.ecr.eu-west-1.amazonaws.com/quote_frontend:v1001 ./quote_frontend
+docker buildx build --platform=linux/amd64,linux/arm64 --no-cache --push -t 040929397520.dkr.ecr.eu-west-1.amazonaws.com/quote_backend:v1001 ./quote_backend
+```
 Alternativ approache for minikube: load local image into minikube skip ECR - for testing
 ```
 minikube image load quote-backend:latest
