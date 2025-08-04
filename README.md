@@ -171,4 +171,16 @@ if Ingress addon is enabled and ingress-rules.yaml is applied + minikube tunnel,
     "quote": "The light at the end of the tunnel is interdependent on the relatedness of motivation, subcultures, and management.",
     "time": "2025-08-04T17:49:41.141131Z"
 }
-```                                                                                                                                                                                        
+```      
+
+## metrics server and horizontal-pod-autoscaler HPA
+for mk
+```
+minikube addons enable metrics-server
+
+# Give it ~10–15 seconds, then check:
+
+kubectl get deployment metrics-server -n kube-system
+kubectl top pods -n quote-app
+
+```
