@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: quote-backend:v200
+          image: timursamanchi/quote-backend:zzz
           ports:
             - containerPort: 8080
           resources:

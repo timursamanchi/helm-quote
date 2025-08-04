@@ -101,6 +101,11 @@ kubectl get ns
 # Make sure the app (example: quote-app) is listed.
 
 kubectl get pod -n quote-app
+
+# or for services
+
+kubectl get svc -n quote-app
+
 ```
 
 You should see something like:
@@ -126,4 +131,28 @@ That gives a BusyBox shell. Now can run commands like ls, ping, nslookup, etc.
 To delete any pod (example: busybox)
 ```
 kubectl delete pod busybox -n quote-app
+```
+
+### 🧪 Tip to test if image is present on node (inside Minikube):
+```
+minikube ssh
+docker images | grep quote-backend
+```
+
+## misc
+To stop and remoe nginx services - mac
+```
+brew services stop nginx
+brew uninstall nginx
+sudo rm -rf /usr/local/etc/nginx  # config files
+sudo rm -rf /usr/local/var/log/nginx  # logs
+```
+
+To stop and remoe nginx services - ubuntu
+```
+sudo systemctl stop nginx
+sudo systemctl disable nginx
+sudo apt remove nginx nginx-common -y
+sudo apt purge nginx nginx-common -y
+sudo rm -rf /etc/nginx /var/log/nginx /var/www/html
 ```
