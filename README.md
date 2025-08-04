@@ -82,3 +82,34 @@ minikube image load quote-backend:latest
 # refrence it in the yaml
 image: quote-backend:latest
 ```
+## to test any deployemnet was success - exmaple busybox
+steps can be used on any deployment.yaml files 
+
+### ✅ 1. Check if the namespace and pod exist
+```
+kubectl get ns
+
+# Make sure quote-app is listed.
+
+kubectl get pod -n quote-app
+```
+
+You should see something like:
+```
+NAME      READY   STATUS    RESTARTS   AGE
+busybox   1/1     Running   0          10s
+```
+
+If the status is not Running, run:
+```
+kubectl describe pod busybox -n quote-app
+kubectl logs busybox -n quote-app
+```
+
+### 🧪 2. Exec into the BusyBox pod
+To troubleshoot why it's not starting.
+Once it's in Running state, exec into it:
+```
+kubectl exec -it busybox -n quote-app -- sh
+```
+That gives a BusyBox shell. Now can run commands like ls, ping, nslookup, etc.
