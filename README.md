@@ -1,7 +1,10 @@
 # helm-quote
 docker-terraform-kubernetes-helm deplyement project
 
-
+## port-forward for kubernets
+```
+kubectl port-forward svc/quote-backend 8080:8080 -n quote-app
+```
 ## start minikube with nginx ingress add-on
 ```
 minikube start --addons=ingress
