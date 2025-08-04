@@ -174,7 +174,7 @@ if Ingress addon is enabled and ingress-rules.yaml is applied + minikube tunnel,
 ```      
 
 ## metrics server and horizontal-pod-autoscaler HPA
-for mk
+For mk
 ```
 minikube addons enable metrics-server
 
@@ -182,5 +182,12 @@ minikube addons enable metrics-server
 
 kubectl get deployment metrics-server -n kube-system
 kubectl top pods -n quote-app
+```
+To monitor HPA activities 
+```
+kubectl get hpa -n quote-app --watch
 
+# to delete after the test
+
+kubectl delete deployment frontend-load-generator -n quote-app
 ```
