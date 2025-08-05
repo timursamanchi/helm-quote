@@ -1,4 +1,4 @@
-# generates test load - to test the hap 
+# generates test load - to test the HPA
 apiVersion: apps/v1
 kind: Deployment
 metadata:
