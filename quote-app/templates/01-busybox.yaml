@@ -1,0 +1,19 @@
+{{- if .Values.busybox.enabled }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+  labels:
+    app.kubernetes.io/name: busybox
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+spec:
+  containers:
+    - name: busybox
+      image: {{ .Values.busybox.image }}
+      command: {{ toJson .Values.busybox.command }}
+{{- end }}
