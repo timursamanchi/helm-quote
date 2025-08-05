@@ -10,7 +10,7 @@ busybox:
   command: ["sleep", "3600"]
 
 backend:
-  image: timursamanchi/quote-backend:zzz
+  image: timursamanchi/quote-backend:helm
   port: 8080
   replicaCount: 1
   resources:
@@ -22,7 +22,7 @@ backend:
       memory: "128Mi"
 
 frontend:
-  image: timursamanchi/quote-frontend:zzz
+  image: timursamanchi/quote-frontend:helm
   port: 80
   replicaCount: 1
   resources:
