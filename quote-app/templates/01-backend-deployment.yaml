@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "quote-app.fullname" . }}-backend
+  labels:
+    {{- include "quote-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.backend.replicaCount }}
+  selector:
+    matchLabels:
+      app: quote-backend
+  template:
+    metadata:
+      labels:
+        app: quote-backend
+    spec:
+      containers:
+        - name: backend
+          image: {{ .Values.backend.image }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.backend.port }}
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.backend.port }}
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.backend.port }}
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 15
+            failureThreshold: 3

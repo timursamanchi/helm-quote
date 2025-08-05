@@ -254,3 +254,8 @@ helm template quote-app ./quote-app \
   --namespace quote-app \
   --values quote-app/values.yaml
 
+
+to deploy
+
+helm upgrade --install quote-app ./quote-app \
+  --namespace quote-app

@@ -9,6 +9,19 @@ busybox:
   image: busybox
   command: ["sleep", "3600"]
 
+backend:
+  image: timursamanchi/quote-backend:zzz
+  port: 8080
+  replicaCount: 1
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+
+
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
