@@ -259,3 +259,8 @@ to deploy
 
 helm upgrade --install quote-app ./quote-app \
   --namespace quote-app
+
+
+to test
+
+kubectl exec -it busybox -n quote-app -- wget -qO- http://quote-app-backend:8080
