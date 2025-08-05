@@ -264,3 +264,59 @@ helm upgrade --install quote-app ./quote-app \
 to test
 
 kubectl exec -it busybox -n quote-app -- wget -qO- http://quote-app-backend:8080
+
+
+ ~/p/helm-quote [feature/helm] (tf:dev) % helm template quote-app ./quote-app \
+  --namespace quote-app \
+  --show-only templates/03-frontend-deployment.yaml
+
+---
+# Source: quote-app/templates/03-frontend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quote-app-frontend
+  labels:
+    app.kubernetes.io/name: quote-app
+    app.kubernetes.io/instance: quote-app
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: quote-app-0.1.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quote-frontend
+  template:
+    metadata:
+      labels:
+        app: quote-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: timursamanchi/quote-frontend:zzz
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+            periodSeconds: 10
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 15
+ ~/p/helm-quote [feature/helm] (tf:dev) % 
