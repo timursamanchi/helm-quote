@@ -244,3 +244,13 @@ hey -z 30s -c 20 http://localhost/quote
 kubectl get hpa -n quote-app --watch
 
 You’ll see replicas climb as CPU spikes.
+
+# helm setup
+## ✅ Helm dry-run
+
+Run:
+
+helm template quote-app ./quote-app \
+  --namespace quote-app \
+  --values quote-app/values.yaml
+
